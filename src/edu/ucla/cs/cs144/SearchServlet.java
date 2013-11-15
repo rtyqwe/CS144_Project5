@@ -23,6 +23,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
     	int numResultsToSkip = Integer.parseInt(request.getParameter("numResultsToSkip"));
     	int numResultsToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
     	int origNumResultsToReturn = numResultsToReturn;
+    	
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
@@ -76,6 +77,15 @@ public class SearchServlet extends HttpServlet implements Servlet {
         			"&numResultsToReturn=" + origNumResultsToReturn + "\">Next</a><br>");
         }
         
+        SearchResult[] results = AuctionSearchClient.basicSearch(query, numResultsToSkip, numResultsToReturn);
+        
+        String tmpItemID = null;
+        String tmpItemName = null;
+        for(int i = 0; i < results.length; i++){
+        	tmpItemID = results[i].getItemId();
+        	tmpItemName = results[i].getName();
+        	out.println("<a href=\"item?id=" + tmpItemID + "\">" + tmpItemID + "</a>    " + tmpItemName+"<br>");
+        }
         out.println("</body></html>");
     }
 }
