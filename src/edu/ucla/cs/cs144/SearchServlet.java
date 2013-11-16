@@ -23,6 +23,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
     	int numResultsToSkip = Integer.parseInt(request.getParameter("numResultsToSkip"));
     	int numResultsToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
     	int origNumResultsToReturn = numResultsToReturn;
+    	
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
