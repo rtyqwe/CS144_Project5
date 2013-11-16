@@ -27,8 +27,16 @@ public class SearchServlet extends HttpServlet implements Servlet {
         PrintWriter out = response.getWriter();
         
         out.println("<html>" +
-        		"<head></head>"+
+        		"<head><link rel=\"stylesheet\" href=\"ebayStyle.css\" type=\"text/css\"></head>"+
         		"<body>");
+        
+        //text-box for search
+        out.println("<div id=\"searchEngine\"><form name=\"query\" action=\"search\" method=\"get\"> " +
+        		"Search for keyword: " +
+        		"<input type=\"text\" name=\"q\" class=\"textbox\">" +
+        		"<input type=\"hidden\" name=\"numResultsToSkip\" value=\"0\">" +
+        		"<input type=\"hidden\" name=\"numResultsToReturn\" value=\"10\"> " +
+        		"<input type=\"submit\" value=\"Search\" class=\"search\"></form></div><br>");
         
         SearchResult[] results = AuctionSearchClient.basicSearch(query, 0, 0);
         
@@ -39,11 +47,13 @@ public class SearchServlet extends HttpServlet implements Servlet {
         
         String tmpItemID = null;
         String tmpItemName = null;
+        out.println("<ul>");
         for(int i = numResultsToSkip; i < numResultsToReturn + numResultsToSkip; i++){
         	tmpItemID = results[i].getItemId();
         	tmpItemName = results[i].getName();
-        	out.println("<a href=\"item?id=" + tmpItemID + "\">" + tmpItemID + "</a>:    " + tmpItemName+"<br>");
+        	out.println("<li><a href=\"item?id=" + tmpItemID + "\">" + tmpItemID + "</a>:    " + tmpItemName+"<br></li>");
         }
+        out.println("</ul>");
         out.println("<br>");
         
         //Pagination
@@ -52,6 +62,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
        	int currentPageNum = numResultsToSkip/origNumResultsToReturn+1;
        	int iterPageNum = 1;
        	
+       	out.println("<div style=\"width:800px; margin:0 auto;\">");
        	//Previous Button
        	if(iterPageNum < currentPageNum)
        	{
@@ -75,7 +86,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
         	out.println("   <a href=\"search?q=" + query + "&numResultsToSkip=" + nextSkipStart.toString() +
         			"&numResultsToReturn=" + origNumResultsToReturn + "\">Next</a><br>");
         }
-        
+        out.println("</div>");
         out.println("</body></html>");
     }
 }
