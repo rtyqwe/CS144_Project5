@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 
 public class SearchServlet extends HttpServlet implements Servlet {
        
@@ -26,48 +27,29 @@ public class SearchServlet extends HttpServlet implements Servlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        out.println("<html>" +
-        		"<head><link rel=\"stylesheet\" href=\"ebayStyle.css\" type=\"text/css\"></head>"+
-        		"<body>");
-        
-        //text-box for search
-        out.println("<div class=\"searchEngine\"><form name=\"query\" action=\"search\" method=\"get\"> " +
-        		"Search for keyword: " +
-        		"<input type=\"text\" name=\"q\" class=\"textbox\">" +
-        		"<input type=\"hidden\" name=\"numResultsToSkip\" value=\"0\">" +
-        		"<input type=\"hidden\" name=\"numResultsToReturn\" value=\"10\"> " +
-        		"<input type=\"submit\" value=\"Search\" class=\"search\"></form></div><br>");
-        
         SearchResult[] results = AuctionSearchClient.basicSearch(query, 0, 0);
+        Integer lengthAllResults = results.length;
         
         //When number of results < numResultsToReturn
         numResultsToReturn = results.length < numResultsToReturn ? results.length : numResultsToReturn;
         if(numResultsToReturn + numResultsToSkip > results.length) 
         	numResultsToReturn = results.length - numResultsToSkip;
         
-        String tmpItemID = null;
-        String tmpItemName = null;
         out.println("<ul>");
-        for(int i = numResultsToSkip; i < numResultsToReturn + numResultsToSkip; i++){
-        	tmpItemID = results[i].getItemId();
-        	tmpItemName = results[i].getName();
-        	out.println("<li><a href=\"item?id=" + tmpItemID + "\">" + tmpItemID + "</a>:    " + tmpItemName+"<br></li>");
-        }
-        out.println("</ul>");
-        out.println("<br>");
-        
+        SearchResult[] resultsToForward = Arrays.copyOfRange(results, numResultsToSkip, numResultsToSkip+numResultsToReturn);
+        request.setAttribute("results", resultsToForward);
+      
         //Pagination
         Integer nextSkipStart = numResultsToSkip + origNumResultsToReturn;
         Integer prevSkipStart = numResultsToSkip - origNumResultsToReturn;
-       	int currentPageNum = numResultsToSkip/origNumResultsToReturn+1;
-       	int iterPageNum = 1;
+       	Integer currentPageNum = numResultsToSkip/origNumResultsToReturn+1;
+       	Integer iterPageNum = 1;
        	
-       	out.println("<div style=\"width:800px; margin:0 auto;\">");
+       	Boolean setPrevious = false;
        	//Previous Button
        	if(iterPageNum < currentPageNum)
        	{
-       		out.println("<a href=\"search?q=" + query + "&numResultsToSkip=" + prevSkipStart.toString() +
-        			"&numResultsToReturn=" + origNumResultsToReturn + "\">Previous</a>    ");
+       		setPrevious = true;
        	}
        	
        	//Page skipping
@@ -81,12 +63,24 @@ public class SearchServlet extends HttpServlet implements Servlet {
             		"</a> ");
             }
         }
+       	
+        Boolean setNext = false;
        	//Next Button
         if(results.length > numResultsToSkip + origNumResultsToReturn){
-        	out.println("   <a href=\"search?q=" + query + "&numResultsToSkip=" + nextSkipStart.toString() +
-        			"&numResultsToReturn=" + origNumResultsToReturn + "\">Next</a><br>");
+        	setNext = true;
         }
-        out.println("</div>");
-        out.println("</body></html>");
+        
+        request.setAttribute("setPrevious", setPrevious);
+        request.setAttribute("setNext", setNext);
+       	request.setAttribute("query", query);
+       	request.setAttribute("prevSkipStart", prevSkipStart);
+       	request.setAttribute("nextSkipStart", nextSkipStart);
+       	request.setAttribute("origNumResultsToReturn", origNumResultsToReturn);
+       	request.setAttribute("currentPageNum", currentPageNum);
+       	request.setAttribute("lengthAllResults", lengthAllResults);
+        String nextJSP = "/results.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(request, response);
+        
     }
 }
