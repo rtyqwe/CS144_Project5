@@ -19,11 +19,10 @@ public class SearchServlet extends HttpServlet implements Servlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String query = request.getParameter("q");
-    	  int numResultsToSkip = Integer.parseInt(request.getParameter("numResultsToSkip"));
-    	  int numResultsToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
-    	  int origNumResultsToReturn = numResultsToReturn;
-    	
+    	String query = request.getParameter("q");
+    	int numResultsToSkip = Integer.parseInt(request.getParameter("numResultsToSkip"));
+    	int numResultsToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
+    	int origNumResultsToReturn = numResultsToReturn;
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
@@ -32,7 +31,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
         		"<body>");
         
         //text-box for search
-        out.println("<div id=\"searchEngine\"><form name=\"query\" action=\"search\" method=\"get\"> " +
+        out.println("<div class=\"searchEngine\"><form name=\"query\" action=\"search\" method=\"get\"> " +
         		"Search for keyword: " +
         		"<input type=\"text\" name=\"q\" class=\"textbox\">" +
         		"<input type=\"hidden\" name=\"numResultsToSkip\" value=\"0\">" +
@@ -82,8 +81,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
             		"</a> ");
             }
         }
-        
-        //Next Button
+       	//Next Button
         if(results.length > numResultsToSkip + origNumResultsToReturn){
         	out.println("   <a href=\"search?q=" + query + "&numResultsToSkip=" + nextSkipStart.toString() +
         			"&numResultsToReturn=" + origNumResultsToReturn + "\">Next</a><br>");
