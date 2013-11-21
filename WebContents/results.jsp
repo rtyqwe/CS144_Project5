@@ -2,12 +2,19 @@
 <head>
     <%@ page language="java" contentType="text/html" import="edu.ucla.cs.cs144.*, java.util.List, java.util.ArrayList, java.util.Iterator" %>
     <link rel="stylesheet" href="ebayStyle.css" type="text/css"></link>
+    <script type="text/javascript" src="autosuggest.js"></script>
+    <script type="text/javascript" src="provider.js"></script>
+    <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("txt1"), new SuggestionProvider()); 
+            }
+        </script>
 </head>
 <body>
     <div class="searchEngine">
         <form name="query" action="search" method="get">
             Search for keyword: 
-            <input type="text" name="q" class="textbox"></input>
+            <input type="text" name="q" id="txt1"></input>
             <input type="hidden" name="numResultsToSkip" value="0"></input>
             <input type="hidden" name="numResultsToReturn" value="10"></input>
             <input type="submit" value="Search" class="search"></input>

@@ -1,4 +1,21 @@
-.searchEngine {
+div.suggestions{
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid black;
+    position: absolute; 
+}
+
+div.suggestions div {
+    cursor: default;
+    padding: 0px 3px;
+}
+
+div.suggestions div.current {
+    background-color: #3366cc;
+    color: white;
+}
+
+div.searchEngine {
     text-align: center;
     font-family: 'Verdana', sans-serif;
     font-size: 16px;
@@ -27,9 +44,7 @@ div#mainSearch {
     background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%); 
 }
 
-
-
-.textbox{
+div.searchEngine #txt1{
     width: 300px;
     height: 30px;
     font-size: 18px;
