@@ -1,77 +1,24 @@
 <html>
 <head>
-    <script type="text/javascript" src="autosuggest.js"></script>
-    <script type="text/javascript" src="provider.js"></script>
+    <script language="JavaScript" type="text/javascript" src="autosuggest.js"></script>
+    <script language="JavaScript" type="text/javascript" src="provider.js"></script>
     <link rel="stylesheet" href="ebayStyle.css" type="text/css">
-    <script type="text/javascript">
-            window.onload = function() {
-            	var oTextbox = new AutoSuggestControl(document.getElementById("txt"), new SuggestionProvider(null));
-            }
-
-            function getXmlHttpRequestObject() 
-            {
-                var xmlHttp = false;
-                if (window.XMLHttpRequest)
-                {
-                    //IE7+, Firefox, Chrome 
-                    return new XMLHttpRequest(); 
-                }
-                else if (window.ActiveXObject)
-                {
-                    //Why IE6, IE5????
-                    return new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                else
-                {
-                    alert("Really? Get Chrome!");
-                }
-            }
-
-            var xmlhttp = new getXmlHttpRequestObject();
-
-            function servletGet() {
-                if(xmlhttp){
-                    var query = document.getElementById("query");
-                    xmlhttp.open("GET", "suggest?q=" + query.value, true);
-                    xmlhttp.onreadystatechange = handleServletGet;
-                    xmlhttp.send(null);
-                }
-            }
-
-            function handleServletGet() {
-                if (xmlhttp.readyState == 4){
-                    var suggestions = xmlhttp.responseXML.getElementsByTagName('CompleteSuggestion');
-
-                    var testHTML = "";
-                    //suggestion string array for SuggestionProvider
-                    var sText = [];
-                    for(i = 0; i < suggestions.length; i++) {
-                        var text = suggestions[i].childNodes[0].getAttribute("data");
-                        sText.push(text);
-                        testHTML+=text;
-                    }
-
-                    oTextbox.setSuggestions(sText);
- 
-                    document.getElementById("test").innerHTML = testHTML;
-                }
-            }
+    <script language="JavaScript" type="text/javascript">
+            window.onload = function () {
+            	var oTextbox = new AutoSuggestControl(document.getElementById("txt1"), new SuggestionProvider());
+            };
         </script>
     </head>
 <body>
-    <div class="searchEngine">
-        <div id="mainSearch">
+
+    <div id="mainSearch">
             <form name="query" action="search" method="get">
         Search for keyword: 
-                <input type="text" name="q" id="txt1" onkeyup="servletGet()">
+                <input type="text" name="q" id="txt1">
                 <input type="hidden" name="numResultsToSkip" value="0">
                 <input type="hidden" name="numResultsToReturn" value="10">
                 <input type="submit" value="Search" class="search">
         </form>
-        </div>
     </div>
-
-    <pre id = "test"></pre>
-
     </body>
 </html>

@@ -1,5 +1,4 @@
 function AutoSuggestControl(oTextbox, oProvider) {
-    "use strict";
     this.cur = -1;
     this.layer = null;
     this.provider = oProvider;
@@ -7,8 +6,8 @@ function AutoSuggestControl(oTextbox, oProvider) {
     this.init();
 }
 
+
 AutoSuggestControl.prototype.init = function () {
-    "use strict";
     var oThis = this;
     this.textbox.onkeyup = function (oEvent) {
         if (!oEvent) {
@@ -33,13 +32,7 @@ AutoSuggestControl.prototype.init = function () {
     this.createDropDown();
 };
 
-AutoSuggestControl.prototype.setSuggestions = function (suggestions) {
-    "use strict";
-    this.provider.setSuggestions(suggestions);
-};
-
 AutoSuggestControl.prototype.nextSuggestion = function () {
-    "use strict";
     var cSuggestionNodes = this.layer.childNodes, oNode;
     if (cSuggestionNodes.length > 0 && this.cur < cSuggestionNodes.length - 1) {
         this.cur = this.cur + 1;
@@ -50,7 +43,6 @@ AutoSuggestControl.prototype.nextSuggestion = function () {
 };
 
 AutoSuggestControl.prototype.previousSuggestion = function () {
-    "use strict";
     var cSuggestionNodes = this.layer.childNodes, oNode;
 
     if (cSuggestionNodes.length > 0 && this.cur > 0) {
@@ -62,7 +54,6 @@ AutoSuggestControl.prototype.previousSuggestion = function () {
 };
 
 AutoSuggestControl.prototype.handleKeyDown = function (oEvent) {
-    "use strict";
     switch (oEvent.keyCode) {
     case 38: //up arrow
         this.previousSuggestion();
@@ -77,12 +68,10 @@ AutoSuggestControl.prototype.handleKeyDown = function (oEvent) {
 };
 
 AutoSuggestControl.prototype.hideSuggestions = function () {
-    "use strict";
     this.layer.style.visibility = "hidden";
 };
 
 AutoSuggestControl.prototype.highlightSuggestion = function (oSuggestionNode) {
-    "use strict";
     var i, oNode;
     for (i = 0; i < this.layer.childNodes.length; i = i + 1) {
         oNode = this.layer.childNodes[i];
@@ -95,7 +84,6 @@ AutoSuggestControl.prototype.highlightSuggestion = function (oSuggestionNode) {
 };
 
 AutoSuggestControl.prototype.createDropDown = function () {
-    "use strict";
     this.layer = document.createElement("div");
     this.layer.className = "suggestions";
     this.layer.style.visibility = "hidden";

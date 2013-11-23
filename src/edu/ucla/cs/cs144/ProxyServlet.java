@@ -28,7 +28,7 @@ public class ProxyServlet extends HttpServlet implements Servlet {
         StringBuilder sb = null;
         String line = null;
         
-        response.setContentType("text/xml");
+        response.setContentType("text/xml; charset=UTF-8");
         PrintWriter out = response.getWriter();
         
         try{
