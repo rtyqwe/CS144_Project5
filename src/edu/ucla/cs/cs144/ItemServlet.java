@@ -28,7 +28,6 @@ public class ItemServlet extends HttpServlet implements Servlet {
     		Unmarshaller unmarshaller = jc.createUnmarshaller();
     		InputStream input = new ByteArrayInputStream(itemXmlResponse.getBytes("UTF-8"));
     		item = (Item) unmarshaller.unmarshal(input);
-
     	}
     	catch(Exception e) {
     		e.printStackTrace();

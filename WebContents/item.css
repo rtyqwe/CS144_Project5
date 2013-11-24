@@ -1,0 +1,38 @@
+body {
+  width: 960px;
+  margin: auto;
+}
+.item-search {
+  margin: 0;
+}
+#map_canvas { 
+  height: 300px; 
+  width: 300px;
+  float: right;
+} 
+.item-details {
+  width: 600px;
+  float: left;
+}
+
+h2 {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.item-header .categories {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.item-header .categories li {
+  display: inline;
+}
+
+.item-current {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
