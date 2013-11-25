@@ -88,6 +88,7 @@ AutoSuggestControl.prototype.createDropDown = function () {
     this.layer.className = "suggestions";
     this.layer.style.visibility = "hidden";
     this.layer.style.width = this.textbox.offsetWidth;
+    this.layer.style.background = '#FFFFFF';
     document.body.appendChild(this.layer);
     var oThis = this;
     this.layer.onmousedown = this.layer.onmouseup = this.layer.onmouseover = function (oEvent) {

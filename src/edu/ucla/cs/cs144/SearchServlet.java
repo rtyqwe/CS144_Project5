@@ -21,6 +21,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
     	String query = request.getParameter("q");
+    	
     	int numResultsToSkip = Integer.parseInt(request.getParameter("numResultsToSkip"));
     	int numResultsToReturn = Integer.parseInt(request.getParameter("numResultsToReturn"));
     	int origNumResultsToReturn = numResultsToReturn;

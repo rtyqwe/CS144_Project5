@@ -3,6 +3,7 @@ div.suggestions{
     box-sizing: border-box;
     border: 1px solid black;
     position: absolute; 
+    width: 300px;
 }
 
 div.suggestions div {
@@ -16,36 +17,17 @@ div.suggestions div.current {
 }
 
 div#mainSearch {
-    text-align: center;
-    font-family: 'Verdana', sans-serif;
-    font-size: 15px;
-
-    width: 50%;
-    margin: 0 auto;
-
-    height: 50px;
-    width: 560px; 
-    padding: 20px;
-    background-color: white; 
-    /* outer shadows  (note the rgba is red, green, blue, alpha) */
-    -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4); 
-    -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
-
-    /* rounded corners */
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 7px; 
-    border-radius: 7px;
-
-    /* gradients */
-    background: -webkit-gradient(linear, left top, left bottom, 
-    color-stop(0%, white), color-stop(15%, white), color-stop(100%, #D7E9F5)); 
-    background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%); 
+    overflow-x: hidden;
+    width: 500px;
+    margin-left:auto;
+    margin-right:auto;
 }
-input#txt1 {
-    height: 30px;
-    font-size: 23px;
+
+div#textbox{
+    width : 400px;
 }
-input.search {
-    width: 40em;
-    width: 4em;
+
+body {
+  width: 960px;
+  margin: auto;
 }

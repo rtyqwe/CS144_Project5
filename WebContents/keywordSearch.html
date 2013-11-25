@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8"charset>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
     <script language="JavaScript" type="text/javascript" src="autosuggest.js"></script>
     <script language="JavaScript" type="text/javascript" src="provider.js"></script>
     <link rel="stylesheet" href="ebayStyle.css" type="text/css">
@@ -9,16 +12,25 @@
             };
         </script>
     </head>
+    <title>eBay Keyword Search</title>
 <body>
 
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <div id="mainSearch">
-            <form name="query" action="search" method="get">
-        Search for keyword: 
-                <input type="text" name="q" id="txt1">
+
+    <form class="navbar-form navbar-left" role="search" name="query" action="search" method="get">
+        <label>Search for keyword: </label>
+        <div id="textbox" >
+            <div class="form-group" style="width:300px;">
+                <input type="text" class="form-control" name="q" id="txt1">
+            </div>
                 <input type="hidden" name="numResultsToSkip" value="0">
                 <input type="hidden" name="numResultsToReturn" value="10">
-                <input type="submit" value="Search" class="search">
+                <input type="submit" value="Search" class="btn btn-default">
+        </div>
         </form>
+
     </div>
+</div>
     </body>
 </html>

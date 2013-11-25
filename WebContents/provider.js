@@ -25,7 +25,7 @@ function SuggestionProvider(){
 
 SuggestionProvider.prototype.requestSuggestions = function(oAutoSuggestControl, bTypeAhead) {
     var sTextboxValue = oAutoSuggestControl.textbox.value;
-    var request = "http://localhost:8080/eBay/suggest?q=" + encodeURI(sTextboxValue);
+    var request = "suggest?q=" + encodeURI(sTextboxValue);
 
     xmlHttp.open("GET", request);
     xmlHttp.onreadystatechange = this.handleServletGet(oAutoSuggestControl, bTypeAhead);
