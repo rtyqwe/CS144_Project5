@@ -1,5 +1,6 @@
 <% Item item = (Item) request.getAttribute("item"); %>
-<% boolean isPurchase = "true".equals(request.getAttribute("buy")); %>
+<% String ccn = (String) request.getAttribute("ccn"); %>
+<% String purchaseTime = (String) request.getAttribute("purchaseTime"); %>
 <%@ page language="java" contentType="text/html" import="edu.ucla.cs.cs144.*, java.util.List, java.util.ArrayList, java.util.Iterator" %>
 
 <!DOCTYPE html>
@@ -8,14 +9,11 @@
 <meta charset="utf-8"charset>
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="item.css" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript" src="map.js"></script> 
 
-<title>Item Search - <%=item.id%></title>
+<title>Item Purchase Confirmation - <%=item.id%></title>
 </head>
 
-<body onload="initMap('<%=item.location%>', '<%=item.country%>');"> 
-
+<body>
   <div class="item-search navbar navbar-default" role="navigation">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
@@ -57,15 +55,8 @@
       <li><strong>Ends:</strong> <%=item.ends%></li>
       <% if (item.buyPrice != null) { %>
         <li><strong>Buy Price: </strong><%=item.buyPrice%></li>
-        <% if (!isPurchase) { %>
-          <a href="purchase" class="btn btn-default">Pay Now</a>
-        <% } %>
-      <% } %>
-      <% if (isPurchase) { %>
-        <form name="purchase" action="https://<%=request.getServerName()%>:8443<%=request.getContextPath()%>/purchase" method="post">
-          <strong>Credit Card:</strong> <input type="text" name="ccn">
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        <li>Purchased with CC: <%=ccn%></li>
+        <li>Purchased at Time: <%=purchaseTime%></li>
       <% } %>
     </ul>
     <!-- 1047388061 -->

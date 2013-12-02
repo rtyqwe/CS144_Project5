@@ -17,6 +17,9 @@ public class Item {
 	@XmlElement(name="Currently")
 	public String currently;
 	
+	@XmlElement(name="Buy_Price")
+	public String buyPrice;
+	
 	@XmlElement(name="First_Bid")
 	public String firstBid;
 	
