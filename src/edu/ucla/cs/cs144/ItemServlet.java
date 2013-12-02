@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import javax.servlet.http.HttpSession;
 
 import javax.servlet.RequestDispatcher;
 
@@ -19,7 +20,9 @@ public class ItemServlet extends HttpServlet implements Servlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+    	HttpSession session = request.getSession(true);
     	String itemId = request.getParameter("id");
+    	String buy = request.getParameter("buy");
     	String itemXmlResponse = AuctionSearchClient.getXMLDataForItemId(itemId);
     	
     	Item item = null;
@@ -33,12 +36,13 @@ public class ItemServlet extends HttpServlet implements Servlet {
     		e.printStackTrace();
     	}
     	
-
     	if (item == null) {
     		request.getRequestDispatcher("/error.jsp").forward(request, response);
     	}
     	else {
             request.setAttribute("item", item);
+            request.setAttribute("buy", buy);
+        	session.setAttribute("item", item);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/item.jsp");
             dispatcher.forward(request, response);
     	}
