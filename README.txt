@@ -2,6 +2,12 @@ Project by:
 Robert Nguyen 803879361
 Ryan Chan 503943165
 
+Q1:
+In Figure 2, I'm encrypting from (4)->(5)
+
+Q2:
+The buy price is attached to the purchase servlet through the session.  An Item Object containing the item details and buy price is passed 
+through this session from the item page to the purchase page so that users will have no access to it.
 
 Q3:
 First I used @media markers in the CSS file to check if the width of the browser is 320px.
