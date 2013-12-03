@@ -58,17 +58,18 @@
       <% if (item.buyPrice != null) { %>
         <li><strong>Buy Price: </strong><%=item.buyPrice%></li>
         <% if (!isPurchase) { %>
-          <a href="purchase" class="btn btn-default">Pay Now</a>
+          <a href="purchase?id=<%=item.id%>" class="btn btn-default">Pay Now</a>
         <% } %>
       <% } %>
       <% if (isPurchase) { %>
         <form name="purchase" action="https://<%=request.getServerName()%>:8443<%=request.getContextPath()%>/purchase" method="post">
           <strong>Credit Card:</strong> <input type="text" name="ccn">
+          <input type="hidden" name="id" value="<%=item.id%>">
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       <% } %>
     </ul>
-    <!-- 1047388061 -->
+    <!-- 1047388061 1046290388-->
 
     <div class="item-description">
       <h4>Description</h4>

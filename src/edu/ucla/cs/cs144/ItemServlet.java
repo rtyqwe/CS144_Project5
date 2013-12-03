@@ -11,7 +11,7 @@ import javax.xml.bind.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import javax.servlet.http.HttpSession;
-
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 
 public class ItemServlet extends HttpServlet implements Servlet {
@@ -24,7 +24,7 @@ public class ItemServlet extends HttpServlet implements Servlet {
     	String itemId = request.getParameter("id");
     	String buy = request.getParameter("buy");
     	String itemXmlResponse = AuctionSearchClient.getXMLDataForItemId(itemId);
-    	
+    	HashMap<String, Item> itemMap = new HashMap<String, Item>();
     	Item item = null;
     	try {
     		JAXBContext jc = JAXBContext.newInstance(Item.class);
@@ -42,7 +42,13 @@ public class ItemServlet extends HttpServlet implements Servlet {
     	else {
             request.setAttribute("item", item);
             request.setAttribute("buy", buy);
-        	session.setAttribute("item", item);
+            itemMap = (HashMap<String, Item>) session.getAttribute("itemMap");
+            if (itemMap == null) {
+            	itemMap = new HashMap<String, Item>();
+            }
+        	itemMap.put(itemId, item);
+        	session.setAttribute("itemMap", itemMap);
+        	
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/item.jsp");
             dispatcher.forward(request, response);
     	}

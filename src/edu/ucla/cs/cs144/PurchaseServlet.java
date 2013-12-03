@@ -15,6 +15,7 @@ import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
+import java.util.HashMap;
 
 public class PurchaseServlet extends HttpServlet implements Servlet {
        
@@ -23,8 +24,11 @@ public class PurchaseServlet extends HttpServlet implements Servlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
     	HttpSession session = request.getSession(true);
+    	String id = request.getParameter("id");
     	
-    	Item previousItem = (Item) session.getAttribute("item");
+    	HashMap<String, Item> itemMap = (HashMap<String, Item>) session.getAttribute("itemMap");
+    	Item previousItem = itemMap.get(id);
+    	
     	if (previousItem == null) {
     		request.getRequestDispatcher("/error.jsp").forward(request, response);
     		return;
@@ -41,19 +45,24 @@ public class PurchaseServlet extends HttpServlet implements Servlet {
     {
     	HttpSession session = request.getSession(true);
 
-    	Item previousItem = (Item) session.getAttribute("item");
+    	HashMap<String, Item> itemMap = (HashMap<String, Item>) session.getAttribute("itemMap");
+    	String id = request.getParameter("id");
+    	Item previousItem = itemMap.get(id);
     	if (previousItem == null) {
     		request.getRequestDispatcher("/error.jsp").forward(request, response);
     		return;
     	}
+    	
     	String ccn = request.getParameter("ccn");
     	long purchaseTime = session.getLastAccessedTime();
-    	DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+    	DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm:ss z");
     	String time = formatter.format(purchaseTime);
     	
         request.setAttribute("item", previousItem);
         request.setAttribute("ccn", ccn);
         request.setAttribute("purchaseTime", time);
+        itemMap.remove(id);
+        session.setAttribute("itemMap", itemMap);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/confirm.jsp");
         dispatcher.forward(request, response);
         return;
